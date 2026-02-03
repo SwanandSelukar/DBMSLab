@@ -1,0 +1,528 @@
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+COURSE                         TABLE
+DEPARTMENT                     TABLE
+EMP                            TABLE
+INSTRUCTOR                     TABLE
+SECTION                        TABLE
+ST_INFO                        TABLE
+UNIVERSITY                     TABLE
+
+7 rows selected.
+
+SQL> select * from emp;
+
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 Alice                7564378511
+         2 Bob                  8764538745
+         3 Charlie              9876545678
+         4 David                7564378511
+         5 Eva                  7564378511
+         6 Frank                7564378511
+         7 Grace                7564378511
+         8 Helen                7564378511
+         9 Ian                  7564378511
+        10 Julia                7564378511
+
+10 rows selected.
+
+SQL> alter table emp add pincode int not null;
+alter table emp add pincode int not null
+            *
+ERROR at line 1:
+ORA-01758: table must be empty to add mandatory (NOT NULL) column
+
+
+SQL> drop sequence emp;
+drop sequence emp
+              *
+ERROR at line 1:
+ORA-02289: sequence does not exist
+
+
+SQL> DROP SEQUENCE emp;
+DROP SEQUENCE emp
+              *
+ERROR at line 1:
+ORA-02289: sequence does not exist
+
+
+SQL> DROP SEQUENCE emp_sq;
+
+Sequence dropped.
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (1, 'Alice',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (1, 'Alice',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (2, 'Bob',8764538745,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (2, 'Bob',8764538745,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (3, 'Charlie',9876545678,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (3, 'Charlie',9876545678,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (4, 'David',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (4, 'David',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (5, 'Eva',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (5, 'Eva',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (6, 'Frank',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (6, 'Frank',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL>  INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (7, 'Grace',7564378511,44502);
+ INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (7, 'Grace',7564378511,44502)
+                                      *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (8, 'Helen',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (8, 'Helen',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (9, 'Ian',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (9, 'Ian',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL> INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (10, 'Julia',7564378511,44502);
+INSERT INTO emp (emp_id, name,MOBILE,pincode) VALUES (10, 'Julia',7564378511,44502)
+                                     *
+ERROR at line 1:
+ORA-00904: "PINCODE": invalid identifier
+
+
+SQL>
+SQL> alter table emp add pincode int not null;
+alter table emp add pincode int not null
+            *
+ERROR at line 1:
+ORA-01758: table must be empty to add mandatory (NOT NULL) column
+
+
+SQL> select * from emp;
+
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 Alice                7564378511
+         2 Bob                  8764538745
+         3 Charlie              9876545678
+         4 David                7564378511
+         5 Eva                  7564378511
+         6 Frank                7564378511
+         7 Grace                7564378511
+         8 Helen                7564378511
+         9 Ian                  7564378511
+        10 Julia                7564378511
+
+10 rows selected.
+
+SQL> select * from instructur;
+select * from instructur
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from instructor;
+
+INSTRUCTOR_ID NAME                                                  DEPT_ID I
+------------- -------------------------------------------------- ---------- -
+    SALARY
+----------
+            1 JOHN DOE                                                    1 Y
+     92400
+
+            2 JOHN SMITH                                                  1 N
+     86625
+
+            3 JANE DOE                                                    1 N
+     83160
+
+
+SQL> CREATE TABLE INSTRUCTOR(
+  2  instructor_id INT PRIMARY KEY,
+  3  name VARCHAR(50) NOT NULL,
+  4  dept_id INT,
+  5  is_hod CHAR(1) DEFAULT 'N' CHECK (is_hod IN ('Y','N')),
+  6  salary DECIMAL(10,2),
+  7  CONSTRAINT fk_instructor_dept FOREIGN KEY (dept_id) REFERENCES DEPARTMENT(dept_id));
+CREATE TABLE INSTRUCTOR(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL>
+SQL> # Inserting 7 rows
+SP2-0734: unknown command beginning "Inserting ..." - rest of line ignored.
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(1, 'John Doe', 1, 'Y', 80000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(1, 'John Doe', 1, 'Y', 80000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (D2.SYS_C0011101) violated
+
+
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(2, 'Jane Smith', 2, 'N', 75000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(2, 'Jane Smith', 2, 'N', 75000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (D2.SYS_C0011101) violated
+
+
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(3, 'Mark Lee', 3, 'N', 72000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(3, 'Mark Lee', 3, 'N', 72000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (D2.SYS_C0011101) violated
+
+
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(4, 'Emily Clark', 4, 'Y', 80000);
+
+1 row created.
+
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(5, 'David Brown', 5, 'N', 70000);
+
+1 row created.
+
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(6, 'Lisa Green', 6, 'N', 68000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(6, 'Lisa Green', 6, 'N', 68000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (D2.FK_INSTRUCTOR_DEPT) violated - parent key
+not found
+
+
+SQL> INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(7, 'Tom White', 7, 'Y', 82000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(7, 'Tom White', 7, 'Y', 82000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (D2.FK_INSTRUCTOR_DEPT) violated - parent key
+not found
+
+
+SQL> select * from DEPARTMENT;
+
+   DEPT_ID NAME
+---------- --------------------------------------------------
+BUILDING                                               BUDGET UNIVERSITY_ID
+-------------------------------------------------- ---------- -------------
+         1 Computer Science
+Taylor                                                 100000             1
+
+         2 Mathematics
+Watson                                                  90000             1
+
+         3 Physics
+Newton                                                  85000             1
+
+
+   DEPT_ID NAME
+---------- --------------------------------------------------
+BUILDING                                               BUDGET UNIVERSITY_ID
+-------------------------------------------------- ---------- -------------
+         4 Chemistry
+Curie                                                   78000             2
+
+         5 Biology
+Darwin                                                  82000             2
+
+
+SQL> select instructor_id,name from instructor WHERE dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science');
+
+INSTRUCTOR_ID NAME
+------------- --------------------------------------------------
+            1 JOHN DOE
+            2 JOHN SMITH
+            3 JANE DOE
+
+SQL> select instructor_id,name,salary from instructor WHERE dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science');
+
+INSTRUCTOR_ID NAME                                                   SALARY
+------------- -------------------------------------------------- ----------
+            1 JOHN DOE                                                92400
+            2 JOHN SMITH                                              86625
+            3 JANE DOE                                                83160
+
+SQL> select instructor_id,i.name,i.salary,d.name from instructor WHERE dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science');
+select instructor_id,i.name,i.salary,d.name from instructor WHERE dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science')
+                                     *
+ERROR at line 1:
+ORA-00904: "D"."NAME": invalid identifier
+
+
+SQL> select instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science');
+
+INSTRUCTOR_ID NAME                                                   SALARY
+------------- -------------------------------------------------- ----------
+NAME
+--------------------------------------------------
+            1 JOHN DOE                                                92400
+Computer Science
+
+            1 JOHN DOE                                                92400
+Mathematics
+
+            1 JOHN DOE                                                92400
+Physics
+
+
+INSTRUCTOR_ID NAME                                                   SALARY
+------------- -------------------------------------------------- ----------
+NAME
+--------------------------------------------------
+            1 JOHN DOE                                                92400
+Chemistry
+
+            1 JOHN DOE                                                92400
+Biology
+
+            2 JOHN SMITH                                              86625
+Computer Science
+
+
+INSTRUCTOR_ID NAME                                                   SALARY
+------------- -------------------------------------------------- ----------
+NAME
+--------------------------------------------------
+            2 JOHN SMITH                                              86625
+Mathematics
+
+            2 JOHN SMITH                                              86625
+Physics
+
+            2 JOHN SMITH                                              86625
+Chemistry
+
+
+INSTRUCTOR_ID NAME                                                   SALARY
+------------- -------------------------------------------------- ----------
+NAME
+--------------------------------------------------
+            2 JOHN SMITH                                              86625
+Biology
+
+            3 JANE DOE                                                83160
+Computer Science
+
+            3 JANE DOE                                                83160
+Mathematics
+
+
+INSTRUCTOR_ID NAME                                                   SALARY
+------------- -------------------------------------------------- ----------
+NAME
+--------------------------------------------------
+            3 JANE DOE                                                83160
+Physics
+
+            3 JANE DOE                                                83160
+Chemistry
+
+            3 JANE DOE                                                83160
+Biology
+
+
+15 rows selected.
+
+SQL> set linesize 200;
+SQL> select * from instructor;
+
+INSTRUCTOR_ID NAME                                                  DEPT_ID I     SALARY
+------------- -------------------------------------------------- ---------- - ----------
+            1 JOHN DOE                                                    1 Y      92400
+            2 JOHN SMITH                                                  1 N      86625
+            3 JANE DOE                                                    1 N      83160
+            4 Emily Clark                                                 4 Y      80000
+            5 David Brown                                                 5 N      70000
+
+SQL> avg(i.salary);
+SP2-0734: unknown command beginning "avg(i.sala..." - rest of line ignored.
+SQL> select instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science');
+select instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id = (SELECT dept_id FROM DEPARTMENT WHERE name = 'Computer Science')
+                                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id where d.name = 'Computer Science');
+select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id where d.name = 'Computer Science')
+                                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id where d.name = 'Computer Science');
+select i.instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id where d.name = 'Computer Science')
+                                                                                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id=d.dept_id where d.name = 'Computer Science');
+select i.instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id=d.dept_id where d.name = 'Computer Science')
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id=d.dept_id where d.name = 'Computer Science';
+
+INSTRUCTOR_ID NAME                                                   SALARY NAME
+------------- -------------------------------------------------- ---------- --------------------------------------------------
+            1 JOHN DOE                                                92400 Computer Science
+            2 JOHN SMITH                                              86625 Computer Science
+            3 JANE DOE                                                83160 Computer Science
+
+SQL> select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id where d.name = 'Computer Science';
+select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id where d.name = 'Computer Science'
+                                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id  d.name = 'Computer Science';
+select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id  d.name = 'Computer Science'
+                                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science';
+select i.instructor_id,i.name,i.salary,d.name avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science'
+                                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name, avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science';
+select i.instructor_id,i.name,i.salary,d.name, avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science'
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> select i.instructor_id,i.name,i.salary,d.name from instructor I join Department d on i.dept_id=d.dept_id where d.name = 'Computer Science';
+
+INSTRUCTOR_ID NAME                                                   SALARY NAME
+------------- -------------------------------------------------- ---------- --------------------------------------------------
+            1 JOHN DOE                                                92400 Computer Science
+            2 JOHN SMITH                                              86625 Computer Science
+            3 JANE DOE                                                83160 Computer Science
+
+SQL> select i.instructor_id avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science';
+select i.instructor_id avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science'
+                          *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select  avg(i.salary) as avg_salary from instructor I join Department d on i.dept_id=d.dept_id Where d.name = 'Computer Science';
+
+AVG_SALARY
+----------
+     87395
+
+SQL> select d.name as dept_name, av(i.salary) as avg_salary fromdepartment D join Instructor Ibon d.dept_id=i.dept_id group by d.name;
+select d.name as dept_name, av(i.salary) as avg_salary fromdepartment D join Instructor Ibon d.dept_id=i.dept_id group by d.name
+                                                       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select d.name as dept_name, av(i.salary) as avg_salary from department D join Instructor Ibon d.dept_id=i.dept_id group by d.name;
+select d.name as dept_name, av(i.salary) as avg_salary from department D join Instructor Ibon d.dept_id=i.dept_id group by d.name
+                                                                                              *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> select d.name as dept_name, avg(i.salary) as avg_salary from department D join Instructor Ibon d.dept_id=i.dept_id group by d.name;
+select d.name as dept_name, avg(i.salary) as avg_salary from department D join Instructor Ibon d.dept_id=i.dept_id group by d.name
+                                                                                               *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> select d.name as dept_name, avg(i.salary) as avg_salary from department D join Instructor I on d.dept_id=i.dept_id group by d.name;
+
+DEPT_NAME                                          AVG_SALARY
+-------------------------------------------------- ----------
+Chemistry                                               80000
+Computer Science                                        87395
+Biology                                                 70000
+
+SQL> select sum(salary) as total from instructor where salary > 30000;
+
+     TOTAL
+----------
+    412185
+
+SQL> select * from department Where lower(name) like '%sci%';
+
+   DEPT_ID NAME                                               BUILDING                                               BUDGET UNIVERSITY_ID
+---------- -------------------------------------------------- -------------------------------------------------- ---------- -------------
+         1 Computer Science                                   Taylor                                                 100000             1
+
+SQL> select length(name) as total_length from insrtuctor;
+select length(name) as total_length from insrtuctor
+                                         *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select sum(length(name)) as total_length from insrtuctor;
+select sum(length(name)) as total_length from insrtuctor
+                                              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select sum(length(name)) as total_length from insrtuctor group by name;
+select sum(length(name)) as total_length from insrtuctor group by name
+                                              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select sum(length(name)) as total_length from instructor group by name;
+
+TOTAL_LENGTH
+------------
+          11
+          10
+           8
+           8
+          11
