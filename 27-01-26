@@ -1,0 +1,51 @@
+Date = 27/01/26
+# Some basic queries and updates
+
+# Shows all the tables present in the current database
+SELECT * FROM tab;
+
+# Displays all records from the department table
+SELECT * FROM department;
+
+# Shows the structure of the department table (columns, datatypes)
+DESC department;
+
+# Changes the size of the name column in department table
+ALTER TABLE department MODIFY name VARCHAR2(25);
+
+# Changes the size of the building column in department table
+ALTER TABLE department MODIFY building VARCHAR2(25);
+
+# Makes sure that building column cannot have NULL values
+ALTER TABLE department MODIFY building NOT NULL;
+
+# Displays structure of instructor table
+DESC instructor;
+
+# Displays structure of department table again after changes
+DESC department;
+
+# Finds the department ID for Computer Science department
+SELECT dept_id FROM department WHERE name = 'Computer Science';
+
+# Finds the department ID for English department
+SELECT dept_id FROM department WHERE name = 'English';
+
+# Increases salary by 10% for instructors working in English department
+UPDATE instructor
+SET salary = salary + salary * 0.1
+WHERE dept_id = (SELECT dept_id FROM department WHERE name = 'English');
+
+# Displays instructor IDs whose salary is less than 70000
+SELECT instructor_id FROM instructor WHERE salary < 70000;
+
+# Increases salary by 5% for instructors earning less than 70000
+UPDATE instructor
+SET salary = salary + salary * 0.05
+WHERE salary < 70000;
+
+# Inserts a new course into the course table
+INSERT INTO COURSE VALUES ('CS-001','Weekly Seminar',1,1);
+
+# Reduces the size of the title column in course table
+ALTER TABLE course MODIFY title VARCHAR2(30);
