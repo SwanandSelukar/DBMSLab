@@ -1,0 +1,10 @@
+PRACTICAL 6 
+CREATE PROCEDURE hello_world
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello World');
+END;
+/
+execute hello_world;
+exec hello_world;
+set serveroutput on
