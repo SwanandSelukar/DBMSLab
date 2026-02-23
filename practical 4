@@ -1,0 +1,100 @@
+Departments Table
+CREATE TABLE department_x (
+    deptno INT PRIMARY KEY,
+    dept_name VARCHAR(50),
+    location VARCHAR(50)
+);
+
+INSERT INTO department_x (deptno, dept_name, location) VALUES (10, 'ACCOUNTING', 'New York');
+INSERT INTO department_x (deptno, dept_name, location) VALUES (20, 'RESEARCH', 'Dallas');
+INSERT INTO department_x (deptno, dept_name, location) VALUES (30, 'SALES', 'Chicago');
+INSERT INTO department_x (deptno, dept_name, location) VALUES (40, 'OPERATIONS', 'Boston');
+
+Employee table 
+CREATE TABLE emp (
+    emp_no INT PRIMARY KEY,
+    birth_date DATE NOT NULL,
+    first_name VARCHAR(14) NOT NULL,
+    last_name VARCHAR(16) NOT NULL,
+    gender varchar2(1) check(gender in('M','F')) NOT NULL,
+    hire_date DATE NOT NULL,
+    salary FLOAT DEFAULT 7850.00,
+    job VARCHAR(20) NOT NULL,
+    deptno INT,
+    manager_id INT,
+    FOREIGN KEY (deptno) REFERENCES departments(deptno)
+);
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7839,DATE'1955-11-17', 'John', 'Smith', 'M',DATE'1990-06-09', 5000.00, 'MANAGER', 10 ,NULL);
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7566, DATE '1960-02-21', 'James', 'Brown', 'M', DATE '1991-04-02', 2450.00, 'CLERK', 20, 7839);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7654, DATE '1963-12-09', 'Scott', 'Allen', 'M', DATE '1989-06-04', 2975.00, 'SALESMAN', 30, 7839);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7934, DATE '1970-12-03', 'Adam', 'Martin', 'M', DATE '1993-07-09', 1300.00, 'CLERK', 30, 7839);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7788, DATE '1961-05-23', 'Alan', 'Walker', 'M', DATE '1990-09-14', 3000.00, 'ANALYST', 20, 7566);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7902, DATE '1958-11-07', 'Alice', 'Jones', 'F', DATE '1988-12-12', 1600.00, 'CLERK', 30, 7654);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7876, DATE '1962-01-14', 'George', 'Black', 'M', DATE '1989-01-20', 1100.00, 'CLERK', 40, 7566);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7844, DATE '1965-09-28', 'Diana', 'White', 'F', DATE '1992-05-21', 2950.00, 'SALESMAN', 30, 7654);
+
+INSERT INTO emp (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id)
+VALUES (7900, DATE '1972-06-19', 'Bob', 'King', 'M', DATE '1991-08-18', 850.00, 'CLERK', 10, 7839);
+
+
+
+1.Display all employee names that starts with "a" and are at least 3 characters in length.
+select first_name from emp where first_name like 'a%' and length(first_name) >= 3;
+select first_name from emp where lower(first_name) like 'a%' and length(first_name) >= 3; 
+ 
+2.Display departments having Dollas, New York and Chicago locations.
+SELECT dept_name, location FROM departments WHERE location IN ('Dallas', 'New York', 'Chicago');
+select name ,location from departments where lower(location)='dallas' or lower(location)='new york' or lower(location)='chicago';
+
+3. Display the names of employees who are working as clerk, salesman, or analyst and drawing a salary more than 3000.
+SELECT first_name, last_name, job, salary FROM emp WHERE (job = 'CLERK' OR job = 'SALESMAN' OR job = 'ANALYST') AND salary >= 3000;
+
+4. Display the names of employees who are not working as managers.
+SELECT first_name, last_name FROM emp WHERE lower(job) != 'MANAGER';
+
+5. Display the name of the employee who earns the highest salary.
+SELECT max(salary) as max_sal from emp;
+select first_name, salary from emp where salary=(select max(salary)from emp);
+
+6. Display the employee number and name of the employee working as CLERK and earning the highest salary among CLERKS.
+select emp_no ,first_name, salary from emp where salary = (select max(salary)from emp where lower(job)='clerk');
+
+7. Display the names of clerks who earn a salary more than that of James or less than that of Scott.
+SELECT first_name, last_name,salary FROM emp WHERE job = 'CLERK' AND (salary > (SELECT salary FROM emp WHERE first_name = 'James') OR salary < (SELECT salary FROM emp WHERE first_name = 'Scott'));
+
+8. Display the names of the employees who earn the highest salary in their respective departments.
+SELECT e1.first_name, e1.last_name, e1.salary, e1.deptno
+FROM emp e1
+WHERE e1.salary IN (
+    SELECT MAX(e2.salary)
+    FROM emp e2
+    WHERE e2.deptno = e1.deptno
+);
+
+SELECT e1.first_name, e1.last_name, e1.salary,e1.deptno, d.dept_name
+FROM emp e1
+JOIN departments d ON e1.deptno = d.deptno
+WHERE e1.salary  IN	 (
+    SELECT MAX(e2.salary)
+    FROM emp e2
+    WHERE e2.deptno = e1.deptno
+);
+
+9. Display those employees who are working in the same department where their manager is working.
+SELECT e1.first_name, e1.last_name
+FROM emp e1
+JOIN emp e2 ON e1.manager_id = e2.emp_no
+WHERE e1.deptno = e2.deptno;
